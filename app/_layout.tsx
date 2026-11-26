@@ -1,5 +1,6 @@
 
-import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { Stack, useRouter, useSegments } from "expo-router";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 
@@ -15,7 +16,14 @@ import {
   DMSans_700Bold,
 } from "@expo-google-fonts/dm-sans";
 
+import { authClient } from "../lib/auth-client";
+
 export default function RootLayout() {
+  const router = useRouter();
+  const segments = useSegments();
+
+  const { data: session, isPending } = authClient.useSession();
+
   const [fontsLoaded] = useFonts({
     CormorantGaramond_400Regular,
     CormorantGaramond_600SemiBold,
@@ -24,6 +32,24 @@ export default function RootLayout() {
     DMSans_600SemiBold,
     DMSans_700Bold,
   });
+
+  useEffect(() => {
+    if (!fontsLoaded || isPending) return;
+
+    const currentScreen = segments[0];
+    const isAuthenticated = !!session?.user;
+
+    const isAuthScreen =
+      currentScreen === "sign-in" || currentScreen === "sign-up";
+
+    if (!isAuthenticated && currentScreen === "home") {
+      router.replace("/");
+    }
+
+    if (isAuthenticated && (isAuthScreen || !currentScreen)) {
+      router.replace("/home");
+    }
+  }, [fontsLoaded, isPending, session, segments, router]);
 
   if (!fontsLoaded) {
     return null;
