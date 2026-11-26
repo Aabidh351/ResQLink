@@ -1,9 +1,15 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { COLORS, FONTS, SPACING } from "../constants/theme";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ResQLink</Text>
+      <Image
+        source={require("../assets/images/resqlink-logo.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+
       <Text style={styles.subtitle}>
         Connecting People, Resources, and Emergency Support.
       </Text>
@@ -14,20 +20,25 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F4F0E6",
+    backgroundColor: COLORS.background,
     alignItems: "center",
     justifyContent: "center",
-    padding: 24,
+    padding: SPACING.lg,
+  },
+  logo: {
+    width: 280,
+    height: 280,
   },
   title: {
-    color: "#1E4D5A",
-    fontSize: 36,
-    fontWeight: "bold",
+    color: COLORS.primary,
+    fontFamily: FONTS.heading,
+    fontSize: 42,
   },
   subtitle: {
-    color: "#292D23",
+    color: COLORS.text,
+    fontFamily: FONTS.body,
     fontSize: 15,
     textAlign: "center",
-    marginTop: 12,
+    marginTop: SPACING.md,
   },
 });

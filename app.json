@@ -6,16 +6,18 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "scheme": "resqlink",
+    "icon": "./assets/images/resqlink-icon.png",
     "android": {
       "package": "com.resqlink.app",
       "adaptiveIcon": {
-        "backgroundColor": "#F1E8D6"
+        "foregroundImage": "./assets/images/resqlink-icon.png",
+        "backgroundColor": "#1E4D5A"
       },
       "predictiveBackGestureEnabled": true
     },
     "plugins": [
       "expo-router",
-      "expo-status-bar"
+      "expo-font"
     ]
   }
 }
