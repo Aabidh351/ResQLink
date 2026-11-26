@@ -5,16 +5,12 @@ import {
   Text,
   TextInput,
   Pressable,
-  ScrollView,
   StyleSheet,
   Alert,
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
 } from "react-native";
-import { router } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 
+import AuthLayout from "../components/auth/AuthLayout";
 import { authClient } from "../lib/auth-client";
 import { COLORS, FONTS, SPACING, RADIUS } from "../constants/theme";
 
@@ -24,7 +20,6 @@ export default function SignUpScreen() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const handleSignUp = async () => {
@@ -43,10 +38,7 @@ export default function SignUpScreen() {
     }
 
     if (password.length < 8) {
-      Alert.alert(
-        "Weak password",
-        "Your password must contain at least 8 characters."
-      );
+      Alert.alert("Weak password", "Your password must contain at least 8 characters.");
       return;
     }
 
@@ -73,14 +65,9 @@ export default function SignUpScreen() {
       Alert.alert(
         "Account created",
         "Your ResQLink account has been created successfully.",
-        [
-          {
-            text: "Continue",
-            onPress: () => router.replace("/home"),
-          },
-        ]
+        [{ text: "Continue", onPress: () => router.replace("/home") }]
       );
-    } catch (error) {
+    } catch {
       Alert.alert(
         "Something went wrong",
         "Unable to create your account. Please check your connection and try again."
@@ -91,189 +78,126 @@ export default function SignUpScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView
-        style={styles.flex}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
-        <ScrollView
-          contentContainerStyle={styles.container}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.header}>
-            <Text style={styles.brand}>ResQLink</Text>
-            <Text style={styles.heading}>Create your account</Text>
-            <Text style={styles.description}>
-              Join your community and stay connected to emergency support.
-            </Text>
-          </View>
+    <AuthLayout
+      mode="sign-up"
+      title="Create your account"
+      description="Join your community and stay connected to emergency support."
+    >
+      <View style={styles.form}>
+        <Text style={styles.label}>FULL NAME *</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your full name"
+          placeholderTextColor={COLORS.muted}
+          value={name}
+          onChangeText={setName}
+          autoCapitalize="words"
+        />
 
-          <View style={styles.form}>
-            <Text style={styles.label}>Full name *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your full name"
-              placeholderTextColor={COLORS.muted}
-              value={name}
-              onChangeText={setName}
-              autoCapitalize="words"
-            />
+        <Text style={styles.label}>EMAIL ADDRESS *</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your email"
+          placeholderTextColor={COLORS.muted}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
 
-            <Text style={styles.label}>Email address *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your email"
-              placeholderTextColor={COLORS.muted}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
+        <Text style={styles.label}>PHONE NUMBER (OPTIONAL)</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your phone number"
+          placeholderTextColor={COLORS.muted}
+          value={phone}
+          onChangeText={setPhone}
+          keyboardType="phone-pad"
+        />
 
-            <Text style={styles.label}>
-              Phone number <Text style={styles.optional}>(Optional)</Text>
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your phone number"
-              placeholderTextColor={COLORS.muted}
-              value={phone}
-              onChangeText={setPhone}
-              keyboardType="phone-pad"
-            />
+        <Text style={styles.label}>PASSWORD *</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="At least 8 characters"
+          placeholderTextColor={COLORS.muted}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          autoCapitalize="none"
+        />
 
-            <Text style={styles.label}>Password *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="At least 8 characters"
-              placeholderTextColor={COLORS.muted}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-
-            <Text style={styles.label}>Confirm password *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Re-enter your password"
-              placeholderTextColor={COLORS.muted}
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-
-            <Pressable
-              style={({ pressed }) => [
-                styles.button,
-                pressed && styles.buttonPressed,
-                loading && styles.buttonDisabled,
-              ]}
-              onPress={handleSignUp}
-              disabled={loading}
-            >
-              {loading ? (
-                <ActivityIndicator color={COLORS.onPrimary} />
-              ) : (
-                <Text style={styles.buttonText}>Create account</Text>
-              )}
-            </Pressable>
-            
-          </View>
+        <Text style={styles.label}>CONFIRM PASSWORD *</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Re-enter your password"
+          placeholderTextColor={COLORS.muted}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+          autoCapitalize="none"
+        />
 
         <Pressable
-          style={styles.signInLink}
-          onPress={() => router.push("/sign-in")}
+          style={({ pressed }) => [
+            styles.button,
+            pressed && styles.buttonPressed,
+            loading && styles.buttonDisabled,
+          ]}
+          onPress={handleSignUp}
+          disabled={loading}
         >
-          <Text style={styles.signInText}>
-            Already have an account?{" "}
-            <Text style={styles.signInHighlight}>Sign In</Text>
-          </Text>
+          {loading ? (
+            <ActivityIndicator color={COLORS.onPrimary} />
+          ) : (
+            <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
+          )}
         </Pressable>
-
-
-          <Text style={styles.footer}>
-            By creating an account, you agree to use ResQLink responsibly.
-          </Text>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </View>
+    </AuthLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  flex: {
-    flex: 1,
-  },
-  container: {
-    flexGrow: 1,
-    padding: SPACING.lg,
-    justifyContent: "center",
-  },
-  header: {
-    marginBottom: SPACING.xl,
-  },
-  brand: {
-    fontFamily: FONTS.heading,
-    fontSize: 32,
-    color: COLORS.primary,
-    marginBottom: SPACING.md,
-  },
-  heading: {
-    fontFamily: FONTS.heading,
-    fontSize: 34,
-    color: COLORS.text,
-  },
-  description: {
-    fontFamily: FONTS.body,
-    fontSize: 14,
-    color: COLORS.muted,
-    marginTop: SPACING.sm,
-    lineHeight: 22,
-  },
   form: {
-    backgroundColor: COLORS.surface,
-    padding: SPACING.lg,
-    borderRadius: RADIUS.lg,
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    width: "100%",
   },
   label: {
-    fontFamily: FONTS.medium,
-    fontSize: 14,
+    fontFamily: FONTS.semibold,
+    fontSize: 10,
+    letterSpacing: 1,
     color: COLORS.text,
     marginBottom: SPACING.sm,
   },
-  optional: {
-    fontFamily: FONTS.body,
-    color: COLORS.muted,
-  },
   input: {
-    height: 50,
+    height: 49,
+    backgroundColor: COLORS.background,
+    borderRadius: RADIUS.full,
     borderWidth: 1,
     borderColor: COLORS.border,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: SPACING.md,
+    paddingHorizontal: SPACING.lg,
     fontFamily: FONTS.body,
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.text,
-    backgroundColor: COLORS.background,
     marginBottom: SPACING.md,
+    elevation: 2,
+    shadowColor: "#514B3F",
+    shadowOffset: { width: 2, height: 3 },
+    shadowOpacity: 0.07,
+    shadowRadius: 4,
   },
   button: {
-    height: 52,
+    height: 54,
     backgroundColor: COLORS.primary,
-    borderRadius: RADIUS.md,
+    borderRadius: RADIUS.full,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: SPACING.md,
+    marginTop: SPACING.sm,
+    elevation: 4,
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
   },
   buttonPressed: {
     opacity: 0.85,
@@ -283,30 +207,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: FONTS.semibold,
-    fontSize: 15,
+    fontSize: 12,
+    letterSpacing: 1.2,
     color: COLORS.onPrimary,
   },
-  footer: {
-    fontFamily: FONTS.body,
-    fontSize: 12,
-    color: COLORS.muted,
-    textAlign: "center",
-    marginTop: SPACING.lg,
-    lineHeight: 19,
-  },
-
-signInLink: {
-  alignItems: "center",
-  marginTop: SPACING.lg,
-},
-signInText: {
-  fontFamily: FONTS.body,
-  fontSize: 13,
-  color: COLORS.muted,
-},
-signInHighlight: {
-  fontFamily: FONTS.semibold,
-  color: COLORS.primary,
-},
-
 });
