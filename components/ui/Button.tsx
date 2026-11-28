@@ -83,10 +83,15 @@ const styles = StyleSheet.create({
   },
 
   outline: {
-    backgroundColor: "transparent",
-    borderWidth: 1.5,
-    borderColor: COLORS.primary,
-  },
+  backgroundColor: "transparent",
+  borderWidth: 1.5,
+  borderColor: COLORS.primary,
+  shadowColor: COLORS.primary,
+  shadowOffset: { width: 0, height: 3 },
+  shadowOpacity: 0.08,
+  shadowRadius: 6,
+  elevation: 2,
+},
 
   destructive: {
     backgroundColor: COLORS.critical,

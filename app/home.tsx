@@ -67,6 +67,8 @@ export default function HomeScreen() {
 
   const firstName = displayName.split(" ")[0];
 
+  const isOrganization = session?.user.role === "organization";
+
   // Temporary notice until individual screens are developed.
   const handleComingSoon = (feature: string) => {
     Alert.alert(
@@ -97,6 +99,109 @@ export default function HomeScreen() {
       setLoading(false);
     }
   };
+
+
+if (isOrganization) {
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <View style={styles.header}>
+          <Image
+            source={require("../assets/images/resqlink-logo-horizontal.png")}
+            style={styles.logo}
+            resizeMode="contain"
+            accessibilityLabel="ResQLink logo"
+          />
+
+          <View style={styles.avatar}>
+            <Text style={styles.avatarText}>
+              {firstName.charAt(0).toUpperCase()}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.welcomeSection}>
+          <Text style={styles.welcomeLabel}>
+            RELIEF ORGANIZATION PORTAL
+          </Text>
+
+          <Text style={styles.welcomeTitle}>
+            Welcome, {firstName}!
+          </Text>
+
+          <Text style={styles.welcomeDescription}>
+            Review assistance requests and coordinate support
+            for people in need.
+          </Text>
+        </View>
+
+        <View style={styles.organizationCard}>
+          <Text style={styles.emergencyBadgeText}>
+            ORGANIZATION SERVICES
+          </Text>
+
+          <Text style={styles.emergencyTitle}>
+            Manage Assistance Requests
+          </Text>
+
+          <Text style={styles.emergencyDescription}>
+            Review incoming requests, check requester
+            information, and respond to people who need help.
+          </Text>
+
+          <Button
+            title="Open Dashboard  →"
+            onPress={() => router.push("/organization-dashboard")}
+            style={styles.emergencyButton}
+          />
+          <Pressable
+  onPress={() => router.push("/organization-history")}
+  style={styles.historyButton}
+>
+  <Text style={styles.historyButtonText}>
+    Request History
+  </Text>
+</Pressable>
+        </View>
+
+        <View style={styles.informationCard}>
+          <Text style={styles.informationTitle}>
+            Every response makes a difference.
+          </Text>
+
+          <Text style={styles.informationDescription}>
+            Your organization helps connect people with
+            essential resources and emergency support.
+          </Text>
+        </View>
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>
+            Connecting People, Resources & Support.
+          </Text>
+
+          <Text style={styles.versionText}>
+            ResQLink • Organization Portal
+          </Text>
+        </View>
+      </ScrollView>
+
+      <View style={styles.logoutContainer}>
+        <Button
+          title="Sign out"
+          variant="secondary"
+          onPress={handleSignOut}
+          loading={loading}
+          style={styles.logoutButton}
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -153,7 +258,6 @@ export default function HomeScreen() {
             Let us know what happened. Connect with
             volunteers and relief organizations.
           </Text>
-
           <Button
   title="Request Assistance  →"
   onPress={() => router.push("/request-assistance")}
@@ -556,5 +660,35 @@ const styles = StyleSheet.create({
   buttonPressed: {
   opacity: 0.85,
   transform: [{ scale: 0.985 }],
+},
+
+// Organization
+organizationCard: {
+  backgroundColor: COLORS.primary,
+  borderRadius: RADIUS.xl,
+  padding: SPACING.lg,
+  marginBottom: SPACING.xl,
+  shadowColor: "#173B43",
+  shadowOffset: { width: 0, height: 7 },
+  shadowOpacity: 0.16,
+  shadowRadius: 14,
+  elevation: 5,
+},
+
+historyButton: {
+  marginTop: SPACING.md,
+  minHeight: 54,
+  borderRadius: RADIUS.full,
+  borderWidth: 1.5,
+  borderColor: COLORS.onPrimary,
+  backgroundColor: "transparent",
+  alignItems: "center",
+  justifyContent: "center",
+},
+
+historyButtonText: {
+  color: COLORS.onPrimary,
+  fontFamily: FONTS.semibold,
+  fontSize: 15,
 },
 });
