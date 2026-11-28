@@ -13,6 +13,7 @@ import {
 import AuthLayout from "../components/auth/AuthLayout";
 import { authClient } from "../lib/auth-client";
 import { COLORS, FONTS, SPACING, RADIUS } from "../constants/theme";
+import { router } from "expo-router";
 
 export default function SignUpScreen() {
   const [name, setName] = useState("");
