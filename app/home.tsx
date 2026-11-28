@@ -342,11 +342,16 @@ const styles = StyleSheet.create({
 
   // Emergency card
   emergencyCard: {
-    backgroundColor: COLORS.primary,
-    borderRadius: RADIUS.xl,
-    padding: SPACING.lg,
-    marginBottom: SPACING.xl,
-  },
+  backgroundColor: COLORS.primary,
+  borderRadius: RADIUS.xl,
+  padding: SPACING.lg,
+  marginBottom: SPACING.xl,
+  shadowColor: "#173B43",
+  shadowOffset: { width: 0, height: 7 },
+  shadowOpacity: 0.16,
+  shadowRadius: 14,
+  elevation: 5,
+},
 
   emergencyBadge: {
     flexDirection: "row",
@@ -390,15 +395,20 @@ const styles = StyleSheet.create({
   },
 
   emergencyButton: {
-    backgroundColor: COLORS.accent,
-    borderRadius: RADIUS.full,
-    minHeight: 50,
-    paddingHorizontal: SPACING.md,
-    marginTop: SPACING.lg,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+  backgroundColor: COLORS.accent,
+  borderRadius: RADIUS.full,
+  minHeight: 54,
+  paddingHorizontal: SPACING.lg,
+  marginTop: SPACING.lg,
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  shadowColor: "#102F36",
+  shadowOffset: { width: 0, height: 4 },
+  shadowOpacity: 0.18,
+  shadowRadius: 8,
+  elevation: 4,
+},
 
   emergencyButtonText: {
     fontFamily: FONTS.semibold,
@@ -436,29 +446,35 @@ const styles = StyleSheet.create({
   },
 
   serviceCard: {
-    width: "48%",
-    minHeight: 165,
-    backgroundColor: COLORS.surface,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: RADIUS.lg,
-    padding: SPACING.md,
-    marginBottom: SPACING.md,
-  },
+  width: "48%",
+  minHeight: 170,
+  backgroundColor: COLORS.surface,
+  borderWidth: 1,
+  borderColor: COLORS.border,
+  borderRadius: RADIUS.lg,
+  padding: SPACING.md,
+  marginBottom: SPACING.md,
+  shadowColor: "#244D55",
+  shadowOffset: { width: 0, height: 3 },
+  shadowOpacity: 0.08,
+  shadowRadius: 9,
+  elevation: 2,
+},
 
   cardPressed: {
-    opacity: 0.75,
-  },
+  opacity: 0.88,
+  transform: [{ scale: 0.98 }],
+},
 
   serviceIcon: {
-    width: 38,
-    height: 38,
-    backgroundColor: COLORS.background,
-    borderRadius: RADIUS.md,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: SPACING.md,
-  },
+  width: 40,
+  height: 40,
+  backgroundColor: COLORS.background,
+  borderRadius: RADIUS.md,
+  justifyContent: "center",
+  alignItems: "center",
+  marginBottom: SPACING.md,
+},
 
   serviceNumber: {
     fontFamily: FONTS.bold,
@@ -473,12 +489,12 @@ const styles = StyleSheet.create({
   },
 
   serviceDescription: {
-    fontFamily: FONTS.body,
-    fontSize: 11,
-    lineHeight: 17,
-    color: COLORS.muted,
-    marginTop: SPACING.xs,
-  },
+  fontFamily: FONTS.body,
+  fontSize: 12,
+  lineHeight: 18,
+  color: COLORS.muted,
+  marginTop: SPACING.xs,
+},
 
   cardArrow: {
     fontFamily: FONTS.semibold,
@@ -489,11 +505,13 @@ const styles = StyleSheet.create({
 
   // Information
   informationCard: {
-    backgroundColor: "#EAE5D7",
-    borderRadius: RADIUS.lg,
-    padding: SPACING.lg,
-    marginTop: SPACING.sm,
-  },
+  backgroundColor: "#EAE5D7",
+  borderRadius: RADIUS.lg,
+  padding: SPACING.lg,
+  marginTop: SPACING.sm,
+  borderWidth: 1,
+  borderColor: "rgba(36, 77, 64, 0.08)",
+},
 
   informationTitle: {
     fontFamily: FONTS.semibold,
@@ -539,14 +557,19 @@ const styles = StyleSheet.create({
   },
 
   logoutButton: {
-    minHeight: 46,
-    borderRadius: RADIUS.full,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: COLORS.surface,
-  },
+  minHeight: 50,
+  borderRadius: RADIUS.full,
+  borderWidth: 1,
+  borderColor: COLORS.border,
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: COLORS.surface,
+  shadowColor: "#244D55",
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.07,
+  shadowRadius: 6,
+  elevation: 2,
+},
 
   logoutText: {
     fontFamily: FONTS.semibold,
@@ -555,6 +578,7 @@ const styles = StyleSheet.create({
   },
 
   buttonPressed: {
-    opacity: 0.75,
-  },
+  opacity: 0.85,
+  transform: [{ scale: 0.985 }],
+},
 });
