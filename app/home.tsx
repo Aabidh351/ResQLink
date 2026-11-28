@@ -20,6 +20,7 @@ import {
   SPACING,
   RADIUS,
 } from "../constants/theme";
+import Button from "../components/ui/Button";
 
 // Dashboard service card
 type ServiceCardProps = {
@@ -153,23 +154,11 @@ export default function HomeScreen() {
             volunteers and relief organizations.
           </Text>
 
-          <Pressable
-            style={({ pressed }) => [
-              styles.emergencyButton,
-              pressed && styles.buttonPressed,
-            ]}
-            onPress={() =>
-              handleComingSoon("Emergency Assistance")
-            }
-          >
-            <Text style={styles.emergencyButtonText}>
-              Request Assistance
-            </Text>
-
-            <Text style={styles.emergencyArrow}>
-              {"→"}
-            </Text>
-          </Pressable>
+          <Button
+  title="Request Assistance  →"
+  onPress={() => handleComingSoon("Emergency Assistance")}
+  style={styles.emergencyButton}
+/>
         </View>
 
         {/* QUICK ACCESS */}
@@ -251,22 +240,13 @@ export default function HomeScreen() {
 
       {/* SIGN OUT */}
       <View style={styles.logoutContainer}>
-        <Pressable
-          onPress={handleSignOut}
-          disabled={loading}
-          style={({ pressed }) => [
-            styles.logoutButton,
-            pressed && styles.buttonPressed,
-          ]}
-        >
-          {loading ? (
-            <ActivityIndicator color={COLORS.primary} />
-          ) : (
-            <Text style={styles.logoutText}>
-              Sign out
-            </Text>
-          )}
-        </Pressable>
+        <Button
+  title="Sign out"
+  variant="secondary"
+  onPress={handleSignOut}
+  loading={loading}
+  style={styles.logoutButton}
+/>
       </View>
     </SafeAreaView>
   );
@@ -396,13 +376,11 @@ const styles = StyleSheet.create({
 
   emergencyButton: {
   backgroundColor: COLORS.accent,
+  borderWidth: 0,
   borderRadius: RADIUS.full,
   minHeight: 54,
   paddingHorizontal: SPACING.lg,
   marginTop: SPACING.lg,
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
   shadowColor: "#102F36",
   shadowOffset: { width: 0, height: 4 },
   shadowOpacity: 0.18,
