@@ -156,7 +156,7 @@ export default function HomeScreen() {
 
           <Button
   title="Request Assistance  →"
-  onPress={() => handleComingSoon("Emergency Assistance")}
+  onPress={() => router.push("/request-assistance")}
   style={styles.emergencyButton}
 />
         </View>
@@ -179,9 +179,7 @@ export default function HomeScreen() {
             number="01"
             title="My Requests"
             description="Track your emergency assistance requests."
-            onPress={() =>
-              handleComingSoon("My Requests")
-            }
+            onPress={() => router.push("/my-requests")}
           />
 
           <ServiceCard
